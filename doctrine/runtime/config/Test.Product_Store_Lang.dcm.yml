@@ -1,0 +1,17 @@
+Test\Product_Store_Lang:
+    type: entity
+    table: test_product_store_lang
+    fields:
+        name:
+            type: string
+    id:
+        store:
+            type: string
+            generator: { strategy: NONE }
+        lang:
+            type: string
+            generator: { strategy: NONE }
+    manyToOne:
+        product:
+            targetEntity: Test\Product
+            inversedBy: scope_store_langs

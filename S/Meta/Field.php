@@ -6,6 +6,7 @@ class Field  {
     public $name;
     public $type;
     public $scopes;
+    public $validators = [];
 
 //    public $validators = [];
 //    public $dataSource;

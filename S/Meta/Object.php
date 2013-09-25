@@ -7,7 +7,7 @@ class Object
 
     public $name;
     public $instanceClass = '\S\Object';
-    public $scopes;
+    //public $scopes;
 
     private $fields = [];
 
@@ -15,24 +15,13 @@ class Object
     {
         return $this->fields;
     }
+
     protected function setFields($fields) {
         foreach($fields as $name => $fieldConfig) {
             if (empty($fieldConfig['name'])){
                 $fieldConfig['name'] = $name;
             }
-            $this->fields[$name] = new \S\Field($fieldConfig);
-        }
-    }
-
-    protected function pushScopesToFields() {
-        $fieldNames = array_keys($this->fields);
-
-        foreach ($fieldNames as $field) {
-            foreach($this->scopes as $scope => $fields) {
-                if (in_array($field, $fieldNames)) {
-                    $this->fields[$field]->scopes[] = $scope;
-                }
-            }
+            $this->fields[$name] = new \S\Meta\Field($fieldConfig);
         }
     }
 
@@ -48,7 +37,8 @@ class Object
                 'meta' => $field
             ]);
         }
-        $inst = new $this->instanceClass([
+        $class = $this->instanceClass;
+        $inst = new $class([
             'meta' => $this,
             'fields' => $fields,
             'data' => $data

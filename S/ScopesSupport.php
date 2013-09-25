@@ -29,11 +29,12 @@ trait ScopesSupport
 
 
     protected function getScopeChanges(Scope $scope) {
+        $delta = [];
         if (empty($this->config['scopes'])) {
-            return null;
+            return $delta;
         }
         $scopeDependencies = $this->config['scopes'];
-        $delta = [];
+
         foreach ($scopeDependencies as $key => $changes) {
             $value = $scope->get($key);
             if ($value) {

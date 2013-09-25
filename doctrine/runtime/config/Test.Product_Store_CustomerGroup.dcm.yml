@@ -1,0 +1,17 @@
+Test\Product_Store_CustomerGroup:
+    type: entity
+    table: test_product_store_customergroup
+    fields:
+        price:
+            type: integer
+    id:
+        store:
+            type: string
+            generator: { strategy: NONE }
+        customerGroup:
+            type: string
+            generator: { strategy: NONE }
+    manyToOne:
+        product:
+            targetEntity: Test\Product
+            inversedBy: scope_store_customergroups

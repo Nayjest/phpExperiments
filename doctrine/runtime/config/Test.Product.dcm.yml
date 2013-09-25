@@ -1,0 +1,17 @@
+Test\Product:
+    type: entity
+    table: test_product
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    oneToMany:
+        scope_store_langs:
+            targetEntity: Test\Product_Store_Lang
+            mappedBy: product
+        scope_store_customergroups:
+            targetEntity: Test\Product_Store_CustomerGroup
+            mappedBy: product
+    fields:
+        sku:
+            type: string

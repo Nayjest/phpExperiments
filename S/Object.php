@@ -5,11 +5,13 @@ class Object
     use \S\ScopesSupport;
     public $meta;
     public $fields;
-    public function setData($data) {
+
+    public function setData(array $data) {
         foreach($data as $key=>$value) {
             $this->fields[$key]->setData($value);
         }
     }
+
     public function getData() {
         $res = [];
         foreach($this->fields as $key=>$field) {

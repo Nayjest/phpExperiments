@@ -1,0 +1,20 @@
+Shop\Product:
+  type: entity
+  table: products
+  id:
+    id:
+      type: integer
+      generator:
+        strategy: AUTO
+  fields:
+    name:
+      type: string
+    price:
+      type: integer
+      nullable: TRUE
+
+
+  manyToMany:
+    categories:
+      targetEntity: Category
+      invertedBy: products
