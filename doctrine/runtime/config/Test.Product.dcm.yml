@@ -5,6 +5,11 @@ Test\Product:
         id:
             type: integer
             generator: { strategy: AUTO }
+    lifecycleCallbacks:
+        prePersist:
+            - prePersist
+        postPersist:
+            - postPersist
     oneToMany:
         scope_store_langs:
             targetEntity: Test\Product_Store_Lang

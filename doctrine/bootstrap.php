@@ -5,13 +5,17 @@ require_once "../vendor/autoload.php";
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
+$cfg = \Symfony\Component\Yaml\Yaml::parse(file_get_contents(__DIR__.'/config/config.yml'));
+$proc = new \S\ConfigProcessor\PushEntityAreas();
+$proc->process($cfg);
+\S\Meta::initialize($cfg);
 
 //set_include_path(get_include_path() . PATH_SEPARATOR . __DIR__ . DIRECTORY_SEPARATOR . 'runtime');
 
 #temp
 $files = glob(__DIR__ . '/runtime/*/*.php');
 foreach ($files as $file) {
-    include_once $file;
+  include_once $file;
 }
 
 

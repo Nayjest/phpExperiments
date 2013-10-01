@@ -5,6 +5,8 @@ Test\Product_Store_CustomerGroup:
         price:
             type: integer
     id:
+        product:
+            associationKey: true
         store:
             type: string
             generator: { strategy: NONE }

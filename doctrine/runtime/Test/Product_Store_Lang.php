@@ -105,7 +105,7 @@ class Product_Store_Lang
      * @param \Test\Product $product
      * @return Product_Store_Lang
      */
-    public function setProduct(\Test\Product $product = null)
+    public function setProduct(\Test\Product $product)
     {
         $this->product = $product;
     

@@ -1,0 +1,23 @@
+areas:
+  Test:
+    entities:
+      Product:
+        fields:
+          sku:
+            type: string
+          name:
+            type: string
+            scopes: [store, lang]
+          price:
+            type: string
+            scopes: [store, customerGroup]
+          category:
+            type: Test.Category
+
+      Category:
+        fields:
+          name:
+            type: string
+            scopes: [lang, store]
+
+

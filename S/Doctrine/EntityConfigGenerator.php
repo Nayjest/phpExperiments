@@ -41,6 +41,10 @@ class EntityConfigGenerator
                 'type' => 'entity',
                 'table' => $this->mainTable,
                 'id' => $this->determinateId($cfg),
+                'lifecycleCallbacks' => [
+                    'prePersist' => ['prePersist'],
+                    'postPersist' => ['postPersist'],
+                ]
             ]
         ];
         $this->data[$this->mainClass]['fields'] = $this->determinateFields($cfg);
@@ -105,7 +109,7 @@ class EntityConfigGenerator
         $fieldsCfg = $cfg['fields'];
         $fields = [];
         foreach ($fieldsCfg as $name => $fieldCfg) {
-            $data = $this->processField($name, $fieldCfg);
+            $data = $this->processField($name, $fieldCfg, $cfg);
             if ($data) {
                 $fields[$name] = $data;
             }
@@ -121,15 +125,15 @@ class EntityConfigGenerator
         return $fieldCfg;
     }
 
-    protected function processField($name, $fieldCfg)
+    protected function processField($name, $fieldCfg, $cfg)
     {
-        if ($this->processFieldScopes($name, $fieldCfg)) {
+        if ($this->processFieldScopes($name, $fieldCfg, $cfg)) {
             return false;
         }
         return $this->sanitizeFieldData($fieldCfg);
     }
 
-    protected function processFieldScopes($name, $fieldCfg)
+    protected function processFieldScopes($name, $fieldCfg, $cfg)
     {
         if (empty($fieldCfg['scopes'])) {
             return false;
@@ -141,18 +145,19 @@ class EntityConfigGenerator
         // creating scope object
         if (!isset($this->data[$className])) {
             $tableName = $this->determinateTableName($className);
+            $parts = explode('\\',$this->mainClass);
+            $basicName = strtolower(array_pop($parts));
+            $partialToMainRelationName = $basicName;
+            $mainToPartialRelationName = $this->plural(str_replace($this->mainTable, 'scope', $tableName));
 
             $this->data[$className] = [
                 'type' => 'entity',
                 'table' => $tableName,
                 'fields' => [],
                 'id' => [
-//                    'id' => [
-//                        'type' => 'integer',
-//                        'generator' => [
-//                            'strategy' => 'AUTO'
-//                        ]
-//                    ]
+                    $basicName => [
+                        'associationKey' => true,
+                    ]
                 ]
             ];
 
@@ -167,10 +172,7 @@ class EntityConfigGenerator
             }
 
             // create relation between main and scope objects
-            $parts = explode('\\',$this->mainClass);
-            $basicName = strtolower(array_pop($parts));
-            $partialToMainRelationName = $basicName;
-            $mainToPartialRelationName = $this->plural(str_replace($this->mainTable, 'scope', $tableName));
+
 
             $this->data[$className]['manyToOne'][$partialToMainRelationName] = [
                 'targetEntity' => $this->mainClass,

@@ -105,7 +105,7 @@ class Product_Store_CustomerGroup
      * @param \Test\Product $product
      * @return Product_Store_CustomerGroup
      */
-    public function setProduct(\Test\Product $product = null)
+    public function setProduct(\Test\Product $product)
     {
         $this->product = $product;
     

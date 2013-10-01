@@ -1,0 +1,17 @@
+Shop\ProductT:
+  type: entity
+  table: product_t
+  id:
+    product:
+      associationKey: true
+    lang:
+      type: string
+      generator:
+        strategy: none
+  fields:
+    descr:
+      type: string
+
+  manyToOne:
+    product:
+      targetEntity: Shop\Product

@@ -5,6 +5,8 @@ Test\Product_Store_Lang:
         name:
             type: string
     id:
+        product:
+            associationKey: true
         store:
             type: string
             generator: { strategy: NONE }

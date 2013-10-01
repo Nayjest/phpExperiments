@@ -46,7 +46,7 @@ class PushScopesToFields implements IConfigProcessor
      * @param array $cfg objects config
      * @return array
      */
-    public function process(array $cfg)
+    public function process(array &$cfg)
     {
 
         if (empty($cfg['scopes']) or empty($cfg['fields'])) {

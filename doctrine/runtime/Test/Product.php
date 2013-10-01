@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Product
 {
+    use \S\Doctrine\ScopedEntity;
     /**
      * @var integer
      */

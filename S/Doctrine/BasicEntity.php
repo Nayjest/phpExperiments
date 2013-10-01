@@ -22,7 +22,10 @@ class BasicEntity
         throw new \Exception('Calling unexistant method '.$name );
     }
 
+
     protected function get($field) {
+
+
         if (isset($this->data[$field])) {
             return $this->data[$field];
         } else {
@@ -45,6 +48,7 @@ class BasicEntity
     }
 
     protected function set($field, $val) {
+        $this->data[$field] = $val;
         $md = static::$metadataFactory->getMetadataFor(get_class($this));
         $fields  = $md->getFieldNames();
         if (in_array($field, $fields)) {
